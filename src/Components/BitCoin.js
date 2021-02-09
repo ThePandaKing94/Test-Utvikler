@@ -1,42 +1,31 @@
-import React from 'react'
-import axios from "axios";
-
-export default class BitCoin extends React.Component() {
+import React  from 'react'
+export default class BitCoin extends React.Component {
   
     state = {
         loading: true,
-        time: true,
+        time: null,
     };
 
     async componentDidMount() {
         const url = 'https://api.coindesk.com/v1/bpi/currentprice.json';
-        const respone = fetch(url);
-        const data = await (await respone).json();
-        this.setState({ time: data.results[0]});
-        console.log(data);
+        const respone = await fetch(url);
+        const data = await (respone).json();
+        this.setState({ time: null, loading: false});
+        console.log([data]);
     }
-//     getAPI = () => {
-//         const options = {
-//             method: 'GET',
-//             url: 'https://api.coindesk.com/v1/bpi/currentprice.json',
-//             headers: {
-//               'x-rapidapi-key': '50658ba158msh6f9b0f60ad53207p118d24jsn534a295f7e7f',
-//               'x-rapidapi-host': 'crunchbase-crunchbase-v1.p.rapidapi.com'
-//             }
-//           };
-//           axios.request(options).then(function (response) {
-//               console.log(response.data);
-//           }).catch(function (error) {
-//               console.error(error);
-//           });
-//    }
 
-   
+    render(){
+        if(this.state.loading) {
+            return <div>loading...</div>
+        }
 
-  render(){
+        if(!this.state.time) {
+            return <div>Registrerte ikke tiden</div>
+        }
+
     return (
         <div>
-           {this.state.loading ? <div>Loading...</div> : <div>Something's wrong</div>}
+              <div>{this.state.time}</div>
         </div>
     );
 }
