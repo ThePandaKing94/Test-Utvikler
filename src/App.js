@@ -1,4 +1,5 @@
 import BitCoin from './Components/BitCoin.js'
+import './App.css'
 
 function App() {
   return (
